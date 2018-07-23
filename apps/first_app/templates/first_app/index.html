@@ -35,7 +35,31 @@
           }
         })
       })
-      
+    </script>
+
+    <h1>Demo 2 - Ajax Form</h1>
+    <form action="/first_app/find" method="POST">
+      {% csrf_token %}
+      Find all users whose first name starts with: 
+      <input type="text" name="first_name_starts_with" id="ajax_first_name">
+    </form>
+
+    <div id="placeholder2" style='margin-top:35px; border:1px solid silver; width:750px; padding:10px;'>Placeholder 2</div>
+
+    <script>
+      $('#ajax_first_name').keyup(function(){
+        console.log('came here')
+        console.log("parent's serialize() returned", $(this).parent().serialize())
+        $.ajax({
+          url: '/first_app/find',
+          method: 'post',
+          data: $(this).parent().serialize(),
+          success: function(serverResponse){
+            console.log('success', serverResponse)
+            $('#placeholder2').html(serverResponse)
+          }
+        });
+      });
     </script>
   </body>
 </html>

@@ -12,3 +12,6 @@ def all_json(request):
 def all_html(request):
     users = User.objects.all()
     return render(request, 'first_app/all.html', { "users": users })
+def find(request):
+    users = User.objects.filter(first_name__startswith=request.POST['first_name_starts_with'])
+    return render(request, 'first_app/all.html', { "users": users })
